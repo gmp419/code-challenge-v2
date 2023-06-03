@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @OA\Schema(
  *   schema="UserStoreRequest",
  *   description="Create new user",
- *   required={"name", "email", "password"},
+ *   required={"name", "email", "password", "nickname"},
  *   @OA\Property(
  *      property="name",
  *      type="string",
@@ -32,6 +32,14 @@ use Illuminate\Foundation\Http\FormRequest;
  *      maxLength=191,
  *      description="User Password",
  *      example="correct horse battery staple",
+ *   ),
+ *   @OA\Property(
+ *      property="nickname",
+ *      type="string",
+ *      minLength=1,
+ *      maxLength=29,
+ *      description="User nickname",
+ *      example="janedoe",
  *   ),
  * )
  */
@@ -59,6 +67,7 @@ class UserStoreRequest extends FormRequest
             'name'     => 'required|string|max:191|min:1',
             'email'    => 'required|email|unique:users',
             'password' => 'required|string|min:8|max:191',
+            'nickname' => 'required|string|min:1',
         ];
     }
 }
