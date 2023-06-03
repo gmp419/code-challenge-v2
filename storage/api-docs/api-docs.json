@@ -151,6 +151,11 @@
                         "description": "name",
                         "type": "string",
                         "example": "Jane Doe"
+                    },
+                    "nickname": {
+                        "description": "nickname",
+                        "type": "string",
+                        "example": "jane-doe"
                     }
                 },
                 "type": "object"
@@ -183,6 +188,13 @@
                         "maxLength": 191,
                         "minLength": 1,
                         "example": "correct horse battery staple"
+                    },
+                    "nickname": {
+                        "description": "User nickname",
+                        "type": "string",
+                        "maxLength": 29,
+                        "minLength": 1,
+                        "example": "janedoe"
                     }
                 },
                 "type": "object"
@@ -210,6 +222,13 @@
                         "maxLength": 191,
                         "minLength": 1,
                         "example": "correct horse battery staple"
+                    },
+                    "nickname": {
+                        "description": "User nickname",
+                        "type": "string",
+                        "maxLength": 29,
+                        "minLength": 1,
+                        "example": "janedoe"
                     }
                 },
                 "type": "object"
