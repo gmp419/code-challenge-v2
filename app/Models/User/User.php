@@ -6,6 +6,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Str;
 
 /**
  * @mixin Eloquent
@@ -45,5 +46,51 @@ class User extends Model
         'remember_token',
     ];
 
+    public function setNicknameAttribute($nickname)
+    {
+        if (!$this->isValidNickname($nickname, 30)) {
+            $nickname = $this->getValidNickname($nickname, 30);
+        }
 
+        $this->attributes['nickname'] = $nickname;
+    }
+
+    protected function isValidNickname($nickname, $maxLength): bool
+    {
+
+        if ($this->id && $usersNickname = static::whereId($this->id)->value('nickname')) {
+            if ($usersNickname === $nickname)
+                return true;
+        }
+
+        if (strlen($nickname) >= $maxLength) {
+            return false;
+        }
+
+        if (static::where('nickname', $nickname)->exists()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function getValidNickname($nickname, $maxLength): string
+    {
+        $nickname = $this->getUniqueNickname($nickname);
+
+        if (strlen($nickname) >= $maxLength) {
+            $baseNickname = substr($nickname, 0, 10);
+            $nickname = $this->getUniqueNickname($baseNickname);
+        }
+
+        return $nickname;
+    }
+
+    protected function getUniqueNickname($nickname): string
+    {
+        if (static::where('nickname', $nickname)->exists()) {
+            $nickname = $nickname . '-' . uniqid();
+        }
+        return $nickname;
+    }
 }

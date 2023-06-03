@@ -59,6 +59,7 @@ class UserStoreRequest extends FormRequest
             'name'     => 'required|string|max:191|min:1',
             'email'    => 'required|email|unique:users',
             'password' => 'required|string|min:8|max:191',
+            'nickname' => 'required',
         ];
     }
 }

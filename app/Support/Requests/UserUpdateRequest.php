@@ -56,6 +56,7 @@ class UserUpdateRequest extends FormRequest
                 'email',
                 Rule::unique('users')->ignore(request()->route('user')->id),
             ],
+            'nickname' => 'required',
         ];
     }
 }
